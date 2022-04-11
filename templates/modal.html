@@ -1,0 +1,39 @@
+<div class="modal fade" id="basicModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mdTitle">Basic Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Floating Labels Form -->
+            <div class="modal-body">
+                <form class="row g-3">
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="ftSymbol" placeholder="Symbol">
+                            <label for="floatingName">Mã CK</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="ftVolume" placeholder="Volume">
+                            <label for="floatingName">Khối lượng</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="ftPrice" placeholder="Price">
+                            <label for="floatingName">Giá</label>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" id="ftStatus" placeholder="Status">
+                </form><!-- End floating Labels Form -->
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="btCarryOut">Đặt lệnh</button>
+            </div>
+        </div>
+    </div>
+</div>

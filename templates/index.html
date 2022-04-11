@@ -1,0 +1,68 @@
+{% extends 'master.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+    <div class="pagetitle">
+        <h1>DANH MỤC ĐẦU TƯ</h1>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title"></div>
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Mã CK</th>
+                                <th scope="col">Ngày</th>
+                                <th scope="col">KL Khả dụng</th>
+                                <th scope="col">Giá TB</th>
+                                <th scope="col">Giá TT</th>
+                                <th scope="col">Lãi lỗ (%)</th>
+                                <th scope="col" class="text-center">Đặt lệnh</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for s in stocks %}
+                                <tr>
+                                    <th scope="row">{{ loop.index }}</th>
+                                    <td>{{ s.symbol }}</td>
+                                    <td>{{ s.date }}</td>
+                                    <td>{{ s.shares }}</td>
+                                    <td>{{ s.price }}</td>
+                                    <td>{{ s.close }}</td>
+                                    <td class="{% if s.rate >0 %}text-success{% else %}text-danger{% endif %}">
+                                        {{ '%.2f'|format( s.rate) }}
+                                        <i class="bi {% if s.rate >0 %}bi-caret-up-fill{% else %}bi-caret-down-fill{% endif %}"></i>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group" aria-label="">
+                                            <button type="button" class="btn btn-success bt-order"
+                                                    data-bs-toggle="modal"
+                                                    data-symbol="{{ s.symbol }}" data-bs-target="#basicModal">Mua
+                                            </button>
+                                            <button type="button" class="btn btn-danger bt-order" data-bs-toggle="modal"
+                                                    data-symbol="{{ s.symbol }}" data-status="sell"
+                                                    data-bs-target="#basicModal">Bán
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
