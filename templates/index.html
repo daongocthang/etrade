@@ -1,5 +1,5 @@
 {% extends 'master.html' %}
-{% block title %}Dashboard{% endblock %}
+{% block title %}Danh mục đầu tư{% endblock %}
 {% block content %}
 
     <div class="pagetitle">
@@ -24,6 +24,7 @@
                                 <th scope="col">Giá TB</th>
                                 <th scope="col">Giá TT</th>
                                 <th scope="col">Lãi lỗ (%)</th>
+                                <th scope="col">Lãi lỗ</th>
                                 <th scope="col" class="text-center">Đặt lệnh</th>
                             </tr>
                             </thead>
@@ -33,12 +34,15 @@
                                     <th scope="row">{{ loop.index }}</th>
                                     <td>{{ s.symbol }}</td>
                                     <td>{{ s.date }}</td>
-                                    <td>{{ s.shares }}</td>
+                                    <td>{{ '{:,}'.format( s.shares) }}</td>
                                     <td>{{ s.price }}</td>
                                     <td>{{ s.close }}</td>
                                     <td class="{% if s.rate >0 %}text-success{% else %}text-danger{% endif %}">
-                                        {{ '%.2f'|format( s.rate) }}
+                                        {{ '{:.2f}'.format( s.rate*100) }}
                                         <i class="bi {% if s.rate >0 %}bi-caret-up-fill{% else %}bi-caret-down-fill{% endif %}"></i>
+                                    </td>
+                                    <td class="{% if s.rate >0 %}text-success{% else %}text-danger{% endif %}">
+                                        {{ '{:,.0f}'.format( s.shares*s.price*s.rate) }}
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="">

@@ -13,7 +13,7 @@ def index():
     for s in stocks:
         df = mkt[s.get('symbol')]
         s['close'] = df['close']
-        s['rate'] = (s['close'] - s['price'])*100 / s['price']
+        s['rate'] = (s['close'] - s['price']) / s['price']
 
     return render_template('index.html', stocks=stocks)
 
