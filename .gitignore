@@ -5,4 +5,4 @@ venv/
 
 .idea/
 
-config.ini
+kernel/config.ini
