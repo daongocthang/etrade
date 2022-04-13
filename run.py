@@ -1,11 +1,34 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, session, redirect, url_for
 
+from kernel.auth import login_required, generate_password
 from kernel.stock import StockTracker, search_market
 
 app = Flask(__name__)
+app.secret_key = generate_password(9)
+
+
+@app.before_first_request
+def before_first_request():
+    global PASSWORD
+    PASSWORD = generate_password(6)
+    print("SECRET: {}".format(PASSWORD))
+
+
+@app.route('/login', methods=["POST", "GET"])
+def login():
+    error = False
+    if request.method == 'POST':
+        if request.form['password'] == PASSWORD:
+            session['password'] = PASSWORD
+            return redirect(url_for('index'))
+        else:
+            error = True
+
+    return render_template('login.html', error=error)
 
 
 @app.route('/')
+@login_required
 def index():
     stocks = StockTracker().fetch_holdings()
 

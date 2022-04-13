@@ -5,6 +5,8 @@ from enum import Enum
 
 from mysql.connector import Error, MySQLConnection
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 def read_db_config(filename='config.ini', section='mysql'):
     """ Read database configuration file and return a dictionary object
@@ -14,7 +16,7 @@ def read_db_config(filename='config.ini', section='mysql'):
     """
     # create parser and read ini configuration file
     parser = ConfigParser()
-    parser.read(filename)
+    parser.read(os.path.join(BASE_DIR, filename))
 
     # get section, default to mysql
     db = {}
@@ -59,18 +61,6 @@ class Table:
         self._join_clause = ''
         self._sort_clause = ''
         self._limit_clause = ''
-
-        # Create `config.ini` file if not exists
-        if not os.path.exists('config.ini'):
-            conf = [
-                "[mysql]",
-                "host = localhost",
-                "database = test",
-                "user = root",
-                "password ="
-            ]
-            with open('config.ini', 'w') as f:
-                f.write('\n'.join(conf))
 
         self._conf = read_db_config()
 
